@@ -18,11 +18,9 @@ import {
     Texture,
     Container,
     Graphics,
-
 } from "pixi.js";
 import events from "../events";
-import { AnimationPlayData, DebugOption, FilesLoadedData, SpineMixin } from "../interfaces";
-import { hexStringToNumber } from "../utils/numberUtils";
+import { AnimationPlayData, BackgroundColorData, DebugOption, FilesLoadedData, SpineMixin } from "../interfaces";
 import { spineDebug } from "../utils/spineDebug";
 
 interface PixiDragEvent {
@@ -166,9 +164,10 @@ class PixiService {
         this.spine?.stateData.setMix(mixin.fromAnim, mixin.toAnim, mixin.duration);
     }
 
-    private onSetCanvasBackground(background: string): void {
+    private onSetCanvasBackground(canvasBackground: BackgroundColorData): void {
         if (this.background) {
-            this.background.tint = hexStringToNumber(background);
+            this.background.tint = canvasBackground.color;
+            this.background.alpha = canvasBackground.alpha;
         }
     }
 
@@ -274,7 +273,7 @@ class PixiService {
         const wrapper = document.getElementById("canvas-wrapper");
 
         this.app = new Application({
-            backgroundColor: hexStringToNumber(filesLoadedData.canvasBackground),
+            backgroundAlpha: 0,
             antialias: true,
             width: window.innerWidth,
             height: window.innerHeight,
@@ -285,7 +284,8 @@ class PixiService {
 
         this.background.width = this.app.screen.width;
         this.background.height = this.app.screen.height;
-        this.background.tint = hexStringToNumber(filesLoadedData.canvasBackground);
+        this.background.alpha = filesLoadedData.canvasBackground.alpha;
+        this.background.tint = filesLoadedData.canvasBackground.color;
         this.background.interactive = true;
         this.background
             .on("pointerdown", this.onDragStart.bind(this))

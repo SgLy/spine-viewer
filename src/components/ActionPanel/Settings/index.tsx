@@ -1,4 +1,3 @@
-import { ColorResult } from "react-color";
 import { useSettingsStore } from "../../../store";
 import ColorPicker from "../../base/ColorPicker";
 import ActionPanelContent from "../common/ActionPanelContent";
@@ -13,15 +12,11 @@ const Settings = () => {
         }
     });
 
-    const handleColorChange = (color: ColorResult) => {
-        setCanvasBackground(color.hex);
-    };
-
     return (
         <ActionPanelContent title="Settings">
             <div className="setting">
                 <span className="setting__text">Canvas color</span>
-                <ColorPicker color={canvasBackground} handleColorChange={handleColorChange} />
+                <ColorPicker color={canvasBackground} handleColorChange={setCanvasBackground} />
             </div>
         </ActionPanelContent>
     )

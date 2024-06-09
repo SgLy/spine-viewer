@@ -36,9 +36,14 @@ export interface FileEntry {
     path: string | undefined;
 }
 
+export interface BackgroundColorData {
+    color: number;
+    alpha: number;
+}
+
 export interface FilesLoadedData {
     files: FileEntry[];
-    canvasBackground: string;
+    canvasBackground: BackgroundColorData;
 }
 
 export interface SpineMixin {

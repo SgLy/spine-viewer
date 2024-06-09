@@ -1,12 +1,13 @@
+import { BackgroundColorData } from "../../interfaces";
 import { HandleFunction } from "../../types";
 import { handle } from "../handle";
 import { IDENTIFIERS } from "../identifiers";
 import { remove } from "../remove";
 
 
-export const onSetCanvasBackground = (cb: HandleFunction<string>) => {
+export const onSetCanvasBackground = (cb: HandleFunction<BackgroundColorData>) => {
 
-    const setCanvasBackgroundListener = (evt: CustomEvent<{ canvasBackground: string }>) => {
+    const setCanvasBackgroundListener = (evt: CustomEvent<{ canvasBackground: BackgroundColorData }>) => {
         cb(evt.detail.canvasBackground);
     };
 
